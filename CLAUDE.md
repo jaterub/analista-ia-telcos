@@ -126,10 +126,10 @@ Sin acciones financieras irreversibles (trades, transferencias) — se dejan al 
 1. **Intención primero**: skill `compilar-intencion` → objetivo en una frase + criterios de terminado, con ok del usuario.
 2. **Repo privado propio** + OO instalado según el `README.md` del OO (caso 1), con sello `.claude/oo-version` y su `.gitignore`.
 3. **Arranque mínimo**: `README.md` (empieza aquí: qué es y dónde está cada cosa) · `CONTEXTO.md` (objetivo, reglas propias, check) · `memory/` (cada archivo nace cuando hay algo que guardar).
-4. **Carpetas por quién las usa, solo cuando tengan contenido**: `1_panel/` (lo que lee y edita el usuario) · `2_motor/` (lo que ejecuta) · `3_datos/` (lo que guarda la máquina). Subcarpetas por agrupación cuando una pase de ~7 archivos.
+4. **Estructura de carpetas**: sin plantilla fija. Se arranca solo con lo del punto 3 y la estructura la define la arquitectura del primer encargo. Criterio común: cada carpeta nace cuando tiene contenido, agrupa por función, lleva un nombre que se entiende sin abrirla y el README la explica en una línea.
 5. **Niveles**: lo propio va al `CONTEXTO.md`; lo que sirve a más de un proyecto se anota `[LOOP]` en `memory/feedback.md` y sube al OO por PR; a las normas de la cuenta, solo con ok del usuario.
-6. **Datos reales**; los corporativos nunca en repo personal ni en artefacto publicado.
-
+6. **Datos**: los que pida el objetivo (reales si debe servir en la vida real); los corporativos nunca en repo personal ni en artefacto publicado.
+     
 ## Proyectos grandes
 
 Si el plan supera ~9 tareas o hay frentes independientes, divide en workstreams y ejecuta el loop completo por workstream (subcarpetas `loop/ws-<nombre>/`). Al final, un ciclo de critic sobre la integración de todos los frentes.

@@ -1,0 +1,8 @@
+loop/*
+!loop/*/
+loop/*/*
+!loop/*/brief.md
+!loop/*/retro.md
+!loop/*/informe.md
+__pycache__/
+.env

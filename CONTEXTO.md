@@ -14,7 +14,7 @@
 ## Check
 * ⏳ P0. Arranque: repo privado + OO instalado (1-nov)
 * ☐ P1. Brief, plan y arquitectura (1er encargo, nivel 3 con el loop)
-* ☐ P2. Datos: informes públicos de 4 telcos en `3_datos/`
+* ☐ P2. Datos: informes públicos de 4 telcos (carpeta según P1)
 * ☐ P3. RAG + embeddings + BBDD vectorial (A8-L1)
 * ☐ P4. Agentes con LangGraph (A8-L2)
 * ☐ P5. Evals, observabilidad y costes (A8-L3)

@@ -10,6 +10,11 @@
 ## Qué falló
 - **Un subagente sin la herramienta esperada reescribió un archivo entero.** El researcher no tenía `Edit` y reescribió `stack.md` con `Write`, reproduciendo de memoria las secciones previas. Salió bien (`git diff`: +33, −0), pero fue suerte: pudo haber corrompido contenido verificado. → regla [LOOP] abajo.
 - **El loop necesitó 4 ciclos** (3 + 1 excepción autorizada). La causa raíz no fue mala construcción, sino que el primer draft dio por hechas piezas críticas (extracción de KPIs, slots del enrutador) sin declararlas; el critic las destapó tarde.
+- **Mejoras del plan enseñadas por la ejecución (2-nov, repaso con Javier):**
+  - Dependencia oculta en T4: el plan la ató solo a T1, pero la extracción de KPIs dependía de T2/T3 (PDF reales). → el planner debe marcar dependencias **parciales**.
+  - Verificar cada pieza al terminarla, no todo junto en T9: se hizo así sobre la marcha con T4 y evitó arrastrar errores a T7/T8.
+  - Asignar ejecutor por tarea (Claude Sonnet, Haiku o Codex) dentro del plan; hoy se decide en el chat y no queda escrito.
+  - El plan solo lo revisa el jefe (revisa su propio encargo); el método no pide verificador ni crítico para el plan. Candidato a discutir en la sala de mando.
 
 ## Limitaciones conocidas (aceptadas, no son fallos abiertos)
 - **S2 — Fiabilidad de la extracción de slots del enrutador.** El enrutador (Haiku) extrae `telco` y `periodo_fiscal`; el diseño cubre el caso `null` pero NO el **valor no-null pero erróneo** = fallo silencioso: telco mal extraída → filtro TEXTO vacío → `n/d` espurio; o `periodo_fiscal` mal extraído → respuesta citada del **año equivocado**. Mitigación registrada: el golden set (T6) incluirá preguntas que midan accuracy de extracción de ambos slots. Se construye en P4; queda anotado para entonces.

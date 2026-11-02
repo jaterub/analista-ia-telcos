@@ -308,3 +308,36 @@ Los cuatro modelos 5.x: contexto 1M tokens, salida máx. 128K (.../models/overvi
 - https://github.com/pycqa/bandit · https://docs.semgrep.dev/deployment/oss-deployment · https://pypi.org/project/pip-audit · https://appsecsanta.com/gitleaks
 - https://docs.github.com/en/actions/use-cases-and-examples/building-and-testing/building-and-testing-python · https://docs.github.com/en/get-started/learning-about-github/faq-about-changes-to-githubs-plans · https://github.com/resources/insights/2026-pricing-changes-for-github-actions
 - Internos: /home/claude/analista-ia-telcos/CONTEXTO.md · brief.md · plan.md
+
+---
+
+## 10. Framework HTTP (pieza API): FastAPI vs alternativas
+
+Fecha de consulta de todas las fuentes: **2-nov-2026**. Alcance: solo la capa HTTP de la pieza API; §7 (un proceso uvicorn por contenedor) no se repite.
+Django REST: **n/d** (no consultado en esta mini-tarea).
+
+| Framework | Encaje para API JSON de RAG | Criterios clave (async, validación, OpenAPI) | Licencia | Fuente + fecha |
+|---|---|---|---|---|
+| **FastAPI** 0.162.0 | [HECHO] Se presenta como framework "para construir APIs con Python basado en type hints"; web sobre Starlette y datos sobre Pydantic. [INFERENCIA] Encaja con endpoints de consulta y validación de entrada sin código extra | [HECHO] Soporta `async def` y `def`; la doc indica `async def` cuando la librería de servicio soporta `await` (p. ej. un LLM remoto) y `def` si es bloqueante. Validación automática con Pydantic, "incluso para JSON anidado". Docs OpenAPI automáticas (Swagger UI en `/docs`, ReDoc en `/redoc`) | [HECHO] MIT | [HECHO] pypi.org/project/fastapi/ (publicada 23-oct-2026; Python ≥3.10) · fastapi.tiangolo.com (portada, consulta 2-nov-2026) · fastapi.tiangolo.com/async/ (consulta 2-nov-2026) |
+| **Flask** 3.1.3 | [INFERENCIA] Válido para API sencilla. Para este caso exige añadir validación (p. ej. una extensión) y documentación OpenAPI por su cuenta | [HECHO] Doc oficial: las vistas pueden ser `async def` con `pip install flask[async]`, pero "Flask, as a WSGI application, uses one worker to handle one request/response cycle"; "Async is not inherently faster than sync code"; si el código es mayormente async, recomiendan Quart. La doc de inicio no documenta validación de esquema (solo `request.args.get` y `KeyError` → 400) ni OpenAPI: [INFERENCIA] ausencia en la doc consultada, no prueba de que no exista | [HECHO] BSD-3-Clause | [HECHO] flask.palletsprojects.com/en/stable/async-await/ · flask.palletsprojects.com/en/stable/quickstart/ (consulta 2-nov-2026) · pypi.org/project/Flask/ (publicada 19-feb-2026; Python ≥3.9) |
+| **Litestar** 2.25.0 | [INFERENCIA] Alternativa viable en ASGI con async y validación por type hints; menos habitual que FastAPI, con menos material de referencia | [HECHO] Framework ASGI; validación por type hints con modelos Pydantic, msgspec, dataclasses, attrs o TypedDict (no indica cuál es el predeterminado: [HUECO]); genera esquemas OpenAPI y documentación Swagger/Redoc/Stoplight. La página de validación de su doc devolvió 404 (no verificada) | [HECHO] MIT | [HECHO] litestar.dev (consulta 2-nov-2026; muestra v2.25 y "© 2026") · pypi.org/project/litestar/ (publicada 18-oct-2026; Python ≥3.8, <4.0) · docs.litestar.dev/latest/usage/validation/index.html: 404 |
+
+**Recomendación: FastAPI.** Razón principal: es el único de los tres que cubre sin piezas extra lo que pide la pieza (async para llamadas al LLM + validación Pydantic + OpenAPI automática), con la misma licencia MIT que Litestar y con más material de referencia. Flask se descarta para esta pieza porque su async corre sobre WSGI con un worker por petición y no trae validación ni OpenAPI en su doc de inicio. Litestar queda como alternativa válida si FastAPI diera problemas, pero no aporta ventaja clara aquí.
+
+- [INFERENCIA] Popularidad o "estándar de facto" de FastAPI: no verificado con fuente; no usarlo como argumento sin medirlo (n/d).
+- [HUECO] Madurez/mantenimiento comparado (fecha de último commit, nº de contribuidores) no consultado: las páginas de GitHub no se abrieron en esta sesión. La búsqueda indicó que el repo está en `github.com/fastapi/fastapi`; no verificado en la página del repo.
+- [HUECO] Versión de Pydantic exigida por FastAPI 0.162.0 y compatibilidad con la versión que fije el proyecto: no comprobado.
+- [HUECO] Django REST: no consultado.
+- [HUECO] Litestar: repo de GitHub y predeterminado de validación no verificados (la doc de validación dio 404).
+
+Sources (sección 10):
+- https://fastapi.tiangolo.com/
+- https://fastapi.tiangolo.com/async/
+- https://pypi.org/project/fastapi/
+- https://flask.palletsprojects.com/en/stable/
+- https://flask.palletsprojects.com/en/stable/async-await/
+- https://flask.palletsprojects.com/en/stable/quickstart/
+- https://pypi.org/project/Flask/
+- https://litestar.dev/
+- https://docs.litestar.dev/latest/usage/validation/index.html (404)
+- https://pypi.org/project/litestar/

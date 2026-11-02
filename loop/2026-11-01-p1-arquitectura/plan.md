@@ -66,6 +66,7 @@ DoD:
 - 20 ± 2 preguntas; ≥4 por telco; ≥3 de tablas; ≥2 de comparación entre telcos; ≥2 cuya respuesta correcta es `n/d`.
 - Cada respuesta verificable abriendo el PDF en la página indicada.
 - Sin datos corporativos no públicos.
+- **Precisión de extracción del enrutador** (añadido 2-nov, S2 del critic sobre `arquitectura.md`): incluir preguntas que midan si el enrutador extrae bien `telco` y `periodo_fiscal` — p. ej. preguntas con telco/periodo ambiguos o implícitos, y pares donde un slot mal extraído daría una cita del año o la telco equivocada. Cada una anota el `telco`/`periodo_fiscal` esperado para poder medir accuracy de extracción, no solo la respuesta final.
 Evidencia de verificación: el verifier abre cada PDF y registra cifra encontrada vs esperada por pregunta (n/20 correctas).
 
 ### T7 — Calidad de código: ponytail + diseño del examen de revisión [tipo: build] [depende de: T1, T4]
@@ -83,6 +84,7 @@ Hijos del check: plan por fases (DoD 5) + 5 preguntas de entrevista y propuesta 
 Entregable: `drafts/plan-fases.md` + `drafts/cierre-p1.md`
 DoD:
 - P2-P6: por fase, objetivo en 1 frase + 3-5 hijos (mini-bucle, ya podados) + entregable + DoD + dependencias; P3 incluye hijo "montaje de calidad"; K8s como ampliación opcional al final de P6; Gemini en P4 con comparativa sobre el golden set.
+- **P2, primer hijo obligatorio — spike de extracción de KPIs** (decidido por Javier, 2-nov, como corrección del S1 del critic sobre `arquitectura.md`): con 3 PDF reales, probar los 3 enfoques candidatos (plantilla determinista · modelo barato Haiku · carga manual) para pasar celda de tabla PDF → fila de `kpi_values` (rótulo→KPI canónico, perímetro, unidad, periodo_fiscal) y elegir uno por fiabilidad vs coste vs esfuerzo. Es el riesgo prioritario de la ruta DATOS; nada de P2 avanza hasta cerrarlo.
 - Cada fase con cierre estándar: examen (formato de T7) + 5 preguntas de entrevista + propuesta aplicable en Telefónica (sin datos corporativos).
 - `cierre-p1.md`: 5 preguntas de entrevista con respuesta, basadas en decisiones reales de T4-T7, y 1 propuesta aplicable en Telefónica con datos públicos o genéricos.
 - Coherencia: ninguna herramienta en el plan que no esté en `arquitectura.md`.

@@ -27,7 +27,7 @@ Diseñar la arquitectura y el plan por fases (P2-P6) de un analista con IA que r
 - Toda respuesta del analista: cita documento + página; sin fuente → `n/d`.
 
 ## Conexiones y herramientas que ya tiene
-- GitHub (repo privado `jaterub/analista-ia-telcos`), Claude (suscripción + key API), Python, Power BI. Docker y Postgres en PC personal: **n/d** (preguntar antes de P3).
+- GitHub (repo privado `jaterub/analista-ia-telcos`), Claude (suscripción + key API), Python, Power BI. **Docker 24.0.2 instalado** en el PC personal (motor sin comprobar: `docker info` antes de P3); Postgres va como imagen pgvector dentro de Docker.
 
 ## Dónde corre
 - P1: sesión en la nube (Claude Code remoto), solo documentos y búsqueda web.
@@ -41,6 +41,10 @@ Diseñar la arquitectura y el plan por fases (P2-P6) de un analista con IA que r
 
 ## Cambios (1-nov, 21:19)
 - Añadidas las lentes de producción RAG de CONTEXTO.md: arquitectura con rutas datos/texto y enrutador; set de evaluación 30-50 con preguntas sin respuesta. Motivo: Javier fija las lentes como obligatorias antes de construir.
+
+## Cambios (2-nov)
+- **Docker 24.0.2 instalado** en el PC de Javier (motor sin comprobar; `docker info` antes de P3). Postgres como imagen pgvector.
+- **Convención de cita aprobada por Javier:** se cita la página del archivo PDF y, si no coincide con la impresa, esta entre paréntesis. Deja de ser hueco pendiente de ok.
 
 ## Contexto de solo lectura
 - `CONTEXTO.md` (objetivo, reglas, palabras propias, check).
